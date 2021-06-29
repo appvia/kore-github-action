@@ -19,7 +19,7 @@ jobs:
       - id: docker_meta
         uses: docker/metadata-action@v3.3.0
         with:
-          images: docker.pkg.github.com/appvia/githubUserManager/githubUserManager
+          images: docker.pkg.github.com/appvia/kore-github-action/kore-github-action
           tag-sha: true
           tag-latest: true
           tag-semver: |
