@@ -1,8 +1,6 @@
 name: 'Kore apply'
 description: 'Manage Kore infra based on github repo'
 author: Chris Nesbitt-Smith
-branding:
-  icon: arrow-right-circle
 
 inputs:
   kore-token:
