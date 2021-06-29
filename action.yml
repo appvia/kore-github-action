@@ -21,7 +21,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Login to docker.pkg.github.com
+    - name: Login to ghcr.io
       shell: bash
       run: echo ${PASSWORD} | docker login --username ${USERNAME} --password-stdin ghcr.io
       env:
