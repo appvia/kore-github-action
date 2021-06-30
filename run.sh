@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "WHO AM I"
+kore whoami
+
 TMP=$(mktemp -d)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
