@@ -18,11 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: appvia/kore-github-action:v1.0.0
+      - uses: appvia/kore-github-action:v4.0.0
         with:
-          kore_token: '${{ secrets.KORE_TOKEN }}'
-          kore_team: '${{ secrets.KORE_TEAM }}'
-          kore_server: '${{ secrets.KORE_SERVER }}'
+          kore_config: '${{ secrets.KORE_CONFIG }}'
 ```
 
 ```yaml

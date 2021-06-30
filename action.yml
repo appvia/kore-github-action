@@ -3,14 +3,8 @@ description: 'Manage Kore infra based on github repo'
 author: Chris Nesbitt-Smith
 
 inputs:
-  kore_token:
-    description: 'Kore robot token'
-    required: true
-  kore_team:
-    description: 'The team to use in kore'
-    required: true
-  kore_server:
-    description: 'Address of the kore server'
+  kore_config:
+    description: 'Kore config'
     required: true
 runs:
   using: docker
