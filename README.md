@@ -20,11 +20,9 @@ jobs:
       - uses: actions/checkout@v2.3.4
       - uses: appvia/kore-github-action:v1.0.0
         with:
-          kore-token: ${{ secrets.KORE_TOKEN}}
-          kore-team: ${{ secrets.KORE_TEAM }}
-          kore-server: ${{ secrets.KORE_SERVER }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-actor: ${{ github.actor }}
+          kore_token: '${{ secrets.KORE_TOKEN }}'
+          kore_team: '${{ secrets.KORE_TEAM }}'
+          kore_server: '${{ secrets.KORE_SERVER }}'
 ```
 
 ```yaml

@@ -3,19 +3,15 @@ description: 'Manage Kore infra based on github repo'
 author: Chris Nesbitt-Smith
 
 inputs:
-  kore-token:
+  kore_token:
     description: 'Kore robot token'
     required: true
-  kore-team:
+  kore_team:
     description: 'The team to use in kore'
     required: true
-  kore-server:
+  kore_server:
     description: 'Address of the kore server'
     required: true
 runs:
   using: docker
   image: docker://ghcr.io/appvia/kore-github-action:latest
-  env:
-    KORE_SERVER: '${{ inputs.kore-server }}'
-    KORE_TEAM: '${{ inputs.kore-team }}'
-    KORE_TOKEN: '${{ inputs.kore-token }}'
