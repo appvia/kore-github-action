@@ -1,26 +1,24 @@
 FROM k8s.gcr.io/kustomize/kustomize:v4.1.3 as kustomize
 FROM bitnami/kubectl:1.21 as kubectl
-
-FROM alpine as jq
-ENV JQ_VERSION='1.6'
-RUN wget  https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 -O /tmp/jq-linux64
-
-FROM quay.io/appvia/kore:v0.7.2 as kore
-
 FROM mikefarah/yq:4.9.6 as yq
+
+FROM scratch as binaries
+ARG JQ_VERSION='1.6'
+ARG KORE_VERSION='0.9.0'
+ADD https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 jq
+ADD https://storage.googleapis.com/kore-releases/v${KORE_VERSION}/kore-cli-linux-amd64 kore
 
 FROM alpine as run
 
 RUN apk add --no-cache bash
 
-WORKDIR /usr/bin
+COPY --from=kustomize --chmod=777 /app/kustomize /usr/bin/
+COPY --from=kubectl --chmod=777 /opt/bitnami/kubectl/bin/kubectl /usr/bin/
+COPY --from=yq --chmod=777 /usr/bin/yq /usr/bin/
+COPY --from=binaries --chmod=777 * /usr/bin/
 
-COPY --from=kustomize --chmod=777 /app/kustomize .
-COPY --from=kubectl --chmod=777 /opt/bitnami/kubectl/bin/kubectl .
-COPY --from=kore --chmod=777 /bin/kore .
-COPY --from=jq --chmod=777 /tmp/jq-linux64 jq
-COPY --from=yq --chmod=777 /usr/bin/yq .
+COPY run.sh find-resources-to-delete.jq /usr/bin/
 
-COPY run.sh find-resources-to-delete.jq ./
-
+USER nobody
+ENV KORE_CONFIG="/tmp/kore"
 CMD /usr/bin/run.sh
