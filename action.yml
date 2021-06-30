@@ -16,6 +16,6 @@ runs:
   using: docker
   image: docker://ghcr.io/appvia/kore-github-action:latest
   env:
-    KORE_SERVER: ${{ inputs.kore-server }}
-    KORE_TEAM: ${{ inputs.kore-team }}
-    KORE_TOKEN: ${{ inputs.kore-token }}
+    KORE_SERVER: '${{ inputs.kore-server }}'
+    KORE_TEAM: '${{ inputs.kore-team }}'
+    KORE_TOKEN: '${{ inputs.kore-token }}'
