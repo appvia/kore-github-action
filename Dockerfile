@@ -4,9 +4,9 @@ FROM mikefarah/yq:4.9.6 as yq
 
 FROM scratch as binaries
 ARG JQ_VERSION='1.6'
-ARG KORE_VERSION='0.9.0'
+ARG KORE_VERSION='latest'
 ADD https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 jq
-ADD https://storage.googleapis.com/kore-releases/v${KORE_VERSION}/kore-cli-linux-amd64 kore
+ADD https://storage.googleapis.com/kore-releases/${KORE_VERSION}/kore-cli-linux-amd64 kore
 
 FROM alpine as run
 
