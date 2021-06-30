@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# export KORE_TOKEN='${INPUT_KORE_TOKEN}'
-# export KORE_SERVER=${INPUT_KORE_SERVER}
-# export KORE_TEAM=${INPUT_KORE_TEAM}
-env
+export KORE_TOKEN=${INPUT_KORE_TOKEN}
+export KORE_SERVER=${INPUT_KORE_SERVER}
+export KORE_TEAM=${INPUT_KORE_TEAM}
 
 echo "WHO AM I"
 kore whoami
