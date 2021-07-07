@@ -10,6 +10,9 @@ export KORE_SERVER=${INPUT_KORE_SERVER:-${KORE_SERVER}}
 # $1 is the name of the output
 # $2 is the multiline content
 function github_safe_output {
+  echo "::group::$1"
+  echo $2
+  echo "::endgroup::"
   STRING="${2//'%'/'%25'}"
   STRING="${STRING//$'\n'/'%0A'}"
   STRING="${STRING//$'\r'/'%0D'}"
