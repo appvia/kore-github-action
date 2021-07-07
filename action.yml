@@ -12,13 +12,6 @@ inputs:
   apply:
     description: Apply the changes
     default: false
-outputs:
-  diff:
-    description: Difference of the change
-  output:
-    description: Output of the execution
-  whoami:
-    description: Output of kore whoami
 
 runs:
   using: docker

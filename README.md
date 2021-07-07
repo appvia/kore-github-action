@@ -23,22 +23,6 @@ jobs:
           kore_token: '${{ secrets.KORE_TOKEN }}'
           kore_server: '${{ secrets.KORE_SERVER }}'
           apply: ${{ github.ref == 'refs/heads/main' }}
-
-      - name: 'Comment PR'
-        uses: actions/github-script@4.0.2
-        if: github.event_name == 'pull_request'
-        with:
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `# Proposed diff
-              \`\`\`diff
-              ${{steps.kore.outputs.diff}}
-              \`\`\`
-              `
-            })
 ```
 
 ```yaml

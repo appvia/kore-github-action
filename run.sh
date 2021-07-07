@@ -13,10 +13,10 @@ function github_safe_output {
   echo "::group::$1"
   echo $2
   echo "::endgroup::"
-  STRING="${2//'%'/'%25'}"
-  STRING="${STRING//$'\n'/'%0A'}"
-  STRING="${STRING//$'\r'/'%0D'}"
-  echo "::set-output name=${1}::${STRING}"
+  # STRING="${2//'%'/'%25'}"
+  # STRING="${STRING//$'\n'/'%0A'}"
+  # STRING="${STRING//$'\r'/'%0D'}"
+  # echo "::set-output name=${1}::${STRING}"
 }
 
 # Kore version
