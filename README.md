@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: appvia/kore-github-action:v4.0.0
+      - uses: appvia/kore-github-action:v1.0.0
         id: kore
         with:
           kore_token: '${{ secrets.KORE_TOKEN }}'
