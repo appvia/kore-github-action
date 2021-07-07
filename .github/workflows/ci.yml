@@ -26,6 +26,9 @@ jobs:
           tags: |
             type=sha,format=long
             type=edge,branch=$repo.default_branch
+            type=semver,pattern={{major}}.{{minor}}.{{patch}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
 
       - name: Login to docker registry
         if: ${{ github.event_name != 'pull_request' }}
