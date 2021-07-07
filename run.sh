@@ -1,32 +1,31 @@
 #!/bin/bash
+set -e
 
 echo $INPUT_KORE_CONFIG | base64 -d > /tmp/kore
 export KORE_CONFIG="/tmp/kore"
 
-# if [ -z "$INPUT_KORE_TOKEN" ]; then export KORE_TOKEN=${INPUT_KORE_TOKEN}; fi
-# if [ -z "$INPUT_KORE_SERVER" ]; then export KORE_SERVER=${INPUT_KORE_SERVER}; fi
-# if [ -z "$INPUT_KORE_TEAM" ]; then export KORE_TEAM=${INPUT_KORE_TEAM}; fi
+# Safe multiline output inline for github
+# https://github.community/t/set-output-truncates-multiline-strings/16852/5
+# $1 is the name of the output
+# $2 is the multiline content
+function github_safe_output {
+  STRING="${2//'%'/'%25'}"
+  STRING="${SAFE_STRING//$'\n'/'%0A'}"
+  STRING="${SAFE_STRING//$'\r'/'%0D'}"
+  echo "::set-output name=${1}::${STRING}"
+}
 
-echo "WHO AM I"
-kore whoami
+github_safe_output whoami $(kore whoami)
 
-TMP=$(mktemp -d)
+DESIRED=$(kustomize build . )
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+DIFF=$(echo $DESIRED | kore sync -f - --non-interactive -t kore-admin --state config --dry-run)
 
-echo "GET THE INTENDED STATE"
-kustomize build . | yq eval --tojson - | jq -src > ${TMP}/combined.json 
+github_safe_output diff ${DIFF}
 
-echo ${TMP}/combined.json
-
-set -e
-
-echo "APPLY THE INTENDED STATE"
-cat ${TMP}/combined.json| yq eval-all -P '.[] | splitDoc' -  | kore apply -f -
-
-echo "REMOVE OLD RESOURCES"
-RESOURCES=$(kore get -t kore-admin configmap gitops -o json | jq -cr ".data.combined" | jq -r --slurpfile desired ${TMP}/combined.json -f ${SCRIPT_DIR}/find-resources-to-delete.jq | jq -sr)
-echo $RESOURCES | yq eval-all -P '.[] | splitDoc' -  | kore delete -f -
-
-echo "UPDATING STATE FILE"
-kubectl -n kore-admin --dry-run=client -o json create configmap gitops --from-file=combined=${TMP}/combined.json | kore apply -f -
+if [[ "$INPUT_APPLY" == "true" ]]; then
+  OUTPUT=$(echo $DESIRED | kore sync -f - --non-interactive -t kore-admin --state config)
+  github_safe_output output ${OUTPUT}
+elif
+  github_safe_output output "DRY RUN"
+fi

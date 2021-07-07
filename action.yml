@@ -4,8 +4,16 @@ author: Chris Nesbitt-Smith
 
 inputs:
   kore_config:
-    description: 'Kore config'
+    description: Kore config
     required: true
+  apply:
+    description: Apply the changes
+    default: false
+outputs:
+  diff:
+    description: Difference of the change
+  output:
+    description: Output of the execution
 runs:
   using: docker
   image: docker://ghcr.io/appvia/kore-github-action:latest

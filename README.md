@@ -10,8 +10,7 @@ name: ci
 
 on:
   push:
-    branches:
-      - main
+  pull_request:
 
 jobs:
   build:
@@ -19,8 +18,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.4
       - uses: appvia/kore-github-action:v4.0.0
+        id: kore
         with:
           kore_config: '${{ secrets.KORE_CONFIG }}'
+          apply: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: 'Comment PR'
+        uses: actions/github-script@4.0.2
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `# Proposed diff
+              \`\`\`diff
+              ${{steps.kore.outputs.diff}}
+              \`\`\`
+              `
+            })
 ```
 
 ```yaml
