@@ -5,33 +5,23 @@ set -e
 export KORE_TOKEN=${INPUT_KORE_TOKEN:-${KORE_TOKEN}}
 export KORE_SERVER=${INPUT_KORE_SERVER:-${KORE_SERVER}}
 
-# Safe escaped multiline output inline for github
-# https://github.community/t/set-output-truncates-multiline-strings/16852/5
-# $1 is the name of the output
-# $2 is the multiline content
-function github_safe_output {
-  echo "::group::$1"
-  echo $2
-  echo "::endgroup::"
-  # STRING="${2//'%'/'%25'}"
-  # STRING="${STRING//$'\n'/'%0A'}"
-  # STRING="${STRING//$'\r'/'%0D'}"
-  # echo "::set-output name=${1}::${STRING}"
-}
-
 # Kore version
 kore version
 
 # Validate who I am
-github_safe_output whoami "$(kore whoami --verbose)"
+echo "::group::whoami"
+  kore whoami --verbose
+echo "::endgroup::"
 
-DIFF=$(kustomize build | kore sync -f - --non-interactive -t kore-admin --state config --dry-run)
+echo "::group::diff"
+  kustomize build | kore sync -f - --non-interactive -t kore-admin --state config --dry-run
+echo "::endgroup::"
 
-github_safe_output diff "${DIFF}"
 
+echo "::group::output"
 if [[ "$INPUT_APPLY" == "true" ]]; then
-  OUTPUT=$(kustomize build | kore sync -f - --non-interactive -t kore-admin --state config)
-  github_safe_output output "${OUTPUT}"
+  kustomize build | kore sync -f - --non-interactive -t kore-admin --state config
 else
-  github_safe_output output "DRY RUN"
+  echo "DRY RUN"
 fi
+echo "::endgroup::"
