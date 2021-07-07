@@ -1,7 +1,7 @@
 FROM k8s.gcr.io/kustomize/kustomize:v4.1.3 as kustomize
 
 FROM scratch as binaries
-ARG KORE_VERSION='v0.9.1'
+ARG KORE_VERSION='v0.10.0-rc1'
 ADD https://storage.googleapis.com/kore-releases/${KORE_VERSION}/kore-cli-linux-amd64 kore
 
 FROM alpine as run
