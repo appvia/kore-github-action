@@ -20,7 +20,7 @@ function github_safe_output {
 kore version
 
 # Validate who I am
-github_safe_output whoami "$(kore whoami)"
+github_safe_output whoami "$(kore whoami --verbose)"
 
 DIFF=$(kustomize build | kore sync -f - --non-interactive -t kore-admin --state config --dry-run)
 
