@@ -14,5 +14,7 @@ COPY --from=binaries --chmod=777 * /usr/bin/
 COPY run.sh /usr/bin/
 
 USER nobody
+
 ENV KORE_CONFIG="/tmp/kore"
+
 CMD /usr/bin/run.sh

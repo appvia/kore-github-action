@@ -1,0 +1,25 @@
+apiVersion: policy.kore.appvia.io/v1alpha1
+kind: PolicyPlan
+metadata:
+  annotations:
+    policies.kore.appvia.io/category: kore
+  name: ci.admin
+  namespace: kore-admin
+spec:
+  description: |
+    Provides the capability to do anything in Kore
+  policy:
+    decision:
+      action: allow
+      message: Allow the subject to provision infrastructure
+  selectors:
+    - subject:
+        scopes:
+          - kore:system:robot
+    - resource:
+        groups:
+          - '*'
+        resources:
+          - '*'
+        verbs:
+          - '*'

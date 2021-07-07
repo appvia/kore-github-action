@@ -3,8 +3,11 @@ description: 'Manage Kore infra based on github repo'
 author: Chris Nesbitt-Smith
 
 inputs:
-  kore_config:
-    description: Kore config
+  kore_token:
+    description: Kore robot token
+    required: true
+  kore_server:
+    description: Kore api-server address
     required: true
   apply:
     description: Apply the changes
@@ -14,6 +17,9 @@ outputs:
     description: Difference of the change
   output:
     description: Output of the execution
+  whoami:
+    description: Output of kore whoami
+
 runs:
   using: docker
   image: docker://ghcr.io/appvia/kore-github-action:latest

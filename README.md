@@ -20,7 +20,8 @@ jobs:
       - uses: appvia/kore-github-action:v4.0.0
         id: kore
         with:
-          kore_config: '${{ secrets.KORE_CONFIG }}'
+          kore_token: '${{ secrets.KORE_TOKEN }}'
+          kore_server: '${{ secrets.KORE_SERVER }}'
           apply: ${{ github.ref == 'refs/heads/main' }}
 
       - name: 'Comment PR'
