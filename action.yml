@@ -1,13 +1,13 @@
-name: 'Kore apply'
-description: 'Manage Kore infra based on github repo'
+name: 'Wayfinder apply'
+description: 'Manage WayFinder infra based on github repo'
 author: Chris Nesbitt-Smith
 
 inputs:
-  kore_token:
-    description: Kore robot token
+  wayfinder_token:
+    description: WayFinder robot token
     required: true
-  kore_server:
-    description: Kore api-server address
+  wayfinder_server:
+    description: WayFinder api-server address
     required: true
   apply:
     description: Apply the changes
@@ -15,4 +15,4 @@ inputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/appvia/kore-github-action:1.0.0
+  image: docker://ghcr.io/appvia/wayfinder-github-action:1.0.0
