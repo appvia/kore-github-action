@@ -3,10 +3,10 @@ description: 'Manage WayFinder infra based on github repo'
 author: Chris Nesbitt-Smith
 
 inputs:
-  wayfinder_token:
+  wf_token:
     description: WayFinder robot token
     required: true
-  wayfinder_server:
+  wf_server:
     description: WayFinder api-server address
     required: true
   apply:
