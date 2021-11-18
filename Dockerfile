@@ -1,8 +1,8 @@
 FROM k8s.gcr.io/kustomize/kustomize:v4.1.3 as kustomize
 
 FROM scratch as binaries
-ARG KORE_VERSION='v0.10.0-rc1'
-ADD https://storage.googleapis.com/kore-releases/${KORE_VERSION}/kore-cli-linux-amd64 kore
+ARG WAYFINDER_VERSION='v0.12.0-beta1'
+ADD https://storage.googleapis.com/wayfinder-releases/${WAYFINDER_VERSION}/wf-cli-linux-amd64 wf
 
 FROM alpine as run
 
@@ -15,6 +15,6 @@ COPY run.sh /usr/bin/
 
 USER nobody
 
-ENV KORE_CONFIG="/tmp/kore"
+ENV WAYFINDER_CONFIG="/tmp/wf"
 
 CMD /usr/bin/run.sh

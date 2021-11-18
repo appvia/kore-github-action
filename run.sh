@@ -2,25 +2,25 @@
 set -e
 
 # Handle github action prefixing the env vars
-export KORE_TOKEN=${INPUT_KORE_TOKEN:-${KORE_TOKEN}}
-export KORE_SERVER=${INPUT_KORE_SERVER:-${KORE_SERVER}}
+export WAYFINDER_TOKEN=${INPUT_WAYFINDER_TOKEN:-${WAYFINDER_TOKEN}}
+export WAYFINDER_SERVER=${INPUT_WAYFINDER_SERVER:-${WAYFINDER_SERVER}}
 
 # Kore version
-kore version
+wf version
 
 # Validate who I am
 echo "::group::whoami"
-  kore whoami --verbose
+  wf whoami --verbose
 echo "::endgroup::"
 
 echo "::group::diff"
-  kustomize build | kore sync -f - --non-interactive -t kore-admin --state config --dry-run
+  kustomize build | wf sync -f - --non-interactive --state config --dry-run
 echo "::endgroup::"
 
 
 echo "::group::output"
 if [[ "$INPUT_APPLY" == "true" ]]; then
-  kustomize build | kore sync -f - --non-interactive -t kore-admin --state config
+  kustomize build | wf sync -f - --non-interactive --state config
 else
   echo "DRY RUN"
 fi

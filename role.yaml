@@ -1,10 +1,10 @@
-apiVersion: policy.kore.appvia.io/v1alpha1
+apiVersion: policy.appvia.io/v1alpha1
 kind: PolicyPlan
 metadata:
   annotations:
-    policies.kore.appvia.io/category: kore
+    policies.appvia.io/category: role
   name: ci.admin
-  namespace: kore-admin
+  namespace: ws-admin
 spec:
   description: |
     Provides the capability to do anything in Kore
@@ -15,7 +15,7 @@ spec:
   selectors:
     - subject:
         scopes:
-          - kore:system:robot
+          - wayfinder:system:robot
     - resource:
         groups:
           - '*'
