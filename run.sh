@@ -2,8 +2,8 @@
 set -e
 
 # Handle github action prefixing the env vars
-export WF_TOKEN=${INPUT_WF_TOKEN:-${WF_TOKEN}}
-export WF_SERVER=${INPUT_WF_SERVER:-${WF_SERVER}}
+export WAYFINDER_TOKEN=${INPUT_WAYFINDER_TOKEN:-${WAYFINDER_TOKEN}}
+export WAYFINDER_SERVER=${INPUT_WAYFINDER_SERVER:-${WAYFINDER_SERVER}}
 
 # Kore version
 wf version
