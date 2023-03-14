@@ -1,4 +1,4 @@
-FROM k8s.gcr.io/kustomize/kustomize:v4.1.3 as kustomize
+FROM k8s.gcr.io/kustomize/kustomize:v5.0.1 as kustomize
 
 FROM scratch as binaries
 ARG WAYFINDER_VERSION='v0.12.0-beta1'
